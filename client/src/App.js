@@ -17,7 +17,7 @@ function App() {
       .then((res) => res.json())
       .then((data) => {
         setMongoDatas(data);
-        setBudget(data[0].budget);
+        setBudget(3000);
       });
   }, []);
 
