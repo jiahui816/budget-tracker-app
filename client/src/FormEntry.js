@@ -18,7 +18,7 @@ const FormEntry = () => {
           <Form.Input fluid label='Cost' placeholder='$' required={true} />
           <Form.Input type='date' fluid label='Date' required={true} />
         </Form.Group>
-        <Form.Button onClick={submit} style={{ color: '#4CAF50' }}>
+        <Form.Button onClick={submit} style={{ color: 'black', width: '100%' , "background-color": "#2abf7f"}}>
           Submit
         </Form.Button>
       </Form>
