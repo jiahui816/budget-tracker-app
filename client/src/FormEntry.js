@@ -1,26 +1,32 @@
-import React, { useState } from 'react';
-import { Form } from 'semantic-ui-react';
+import React from 'react';
+import { createLogEntry } from './API';
+import { Form, Button } from 'semantic-ui-react';
+import { useForm } from 'react-hook-form';
 import './FormEntry.css';
 const FormEntry = () => {
-  const [name, setName] = useState('');
-  const [cost, setCost] = useState('');
-  const [date, setDate] = useState('');
+  const { register, handleSubmit } = useForm();
 
-  const submit = (e) => {
-    e.preventDefault();
-    console.log('hahah');
+  const submit = (data, e) => {
+    createLogEntry(data);
+    e.target.reset();
+    window.location.reload();
   };
   return (
     <div className='form'>
-      <Form error={true} className='form__groups'>
-        <Form.Group widths='equal' className='form__group'>
-          <Form.Input fluid label='Name' placeholder='Name' required={true} />
-          <Form.Input fluid label='Cost' placeholder='$' required={true} />
-          <Form.Input type='date' fluid label='Date' required={true} />
-        </Form.Group>
-        <Form.Button onClick={submit} style={{ color: 'black', width: '100%' , "background-color": "#2abf7f"}}>
-          Submit
-        </Form.Button>
+      <Form onSubmit={handleSubmit(submit)}>
+        <Form.Field>
+          <label>Name</label>
+          <input placeholder='Item' name='item_name' ref={register} />
+        </Form.Field>
+        <Form.Field>
+          <label>Cost</label>
+          <input placeholder='💰' name='item_cost' ref={register} />
+        </Form.Field>
+        <Form.Field>
+          <label>Date</label>
+          <input type='date' name='date' ref={register} />
+        </Form.Field>
+        <Button type='submit'>Submit</Button>
       </Form>
     </div>
   );
