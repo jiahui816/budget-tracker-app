@@ -1,23 +1,26 @@
 import './App.css';
-import { Header, Icon } from 'semantic-ui-react';
+import { Button, Header, Icon } from 'semantic-ui-react';
 import BudgetCard from './BudgetCard';
 import budgetImage from './image/moneyicon.png';
 import remainingBalanceImage from './image/remaining.png';
 import spendImage from './image/spend.png';
 import FormEntry from './FormEntry';
 import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import ShowTable from './ShowTable';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
-function App() {
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { changeBudget, selectBudget } from './features/budgetSlice';
+
+function App(props) {
   const [mongoDatas, setMongoDatas] = useState({});
-  const [budget, setBudget] = useState(0);
+
+  const budget = useSelector(selectBudget);
 
   useEffect(() => {
     fetch('http://localhost:3003/api/logs')
       .then((res) => res.json())
       .then((data) => {
         setMongoDatas(data);
-        setBudget(3000);
       });
   }, []);
 
@@ -43,12 +46,14 @@ function App() {
                 <Icon name='database' />
                 <Header.Content>Budget Tracker App</Header.Content>
               </Header>
+              <Button>Change Budget</Button>
               <div className='app__budgetCard'>
                 <BudgetCard
                   image={budgetImage}
                   header='Budget'
                   description={budget}
                 />
+
                 <BudgetCard
                   image={remainingBalanceImage}
                   header='Remaining'

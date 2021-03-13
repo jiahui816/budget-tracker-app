@@ -27,10 +27,21 @@ const FormEntry = () => {
           <label>Date</label>
           <input type='date' name='date' ref={register} />
         </Form.Field>
-        <Button type='submit'>Submit</Button>
+        <Button
+          className='button'
+          type='submit'
+          style={{ backgroundColor: 'lightgreen', color: 'black' }}
+        >
+          Add to Database ➕
+        </Button>
 
         <Link to='/viewAll'>
-          <Button>View All Logs</Button>
+          <Button
+            className='button'
+            style={{ backgroundColor: 'coral', color: 'black' }}
+          >
+            View All Logs 📝
+          </Button>
         </Link>
       </Form>
     </div>
