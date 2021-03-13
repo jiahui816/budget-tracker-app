@@ -2,6 +2,7 @@ import React from 'react';
 import { createLogEntry } from './API';
 import { Form, Button } from 'semantic-ui-react';
 import { useForm } from 'react-hook-form';
+import { Link } from 'react-router-dom';
 import './FormEntry.css';
 const FormEntry = () => {
   const { register, handleSubmit } = useForm();
@@ -27,6 +28,10 @@ const FormEntry = () => {
           <input type='date' name='date' ref={register} />
         </Form.Field>
         <Button type='submit'>Submit</Button>
+
+        <Link to='/viewAll'>
+          <Button>View All Logs</Button>
+        </Link>
       </Form>
     </div>
   );

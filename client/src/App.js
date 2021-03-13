@@ -7,6 +7,7 @@ import spendImage from './image/spend.png';
 import FormEntry from './FormEntry';
 import { useEffect, useState } from 'react';
 import ShowTable from './ShowTable';
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 function App() {
   const [mongoDatas, setMongoDatas] = useState({});
   const [budget, setBudget] = useState(0);
@@ -33,23 +34,41 @@ function App() {
   const remaining = budget - spent;
 
   return (
-    <div className='app'>
-      <Header as='h2' className='app__header'>
-        <Icon name='database' />
-        <Header.Content>Budget Tracker App</Header.Content>
-      </Header>
-      <div className='app__budgetCard'>
-        <BudgetCard image={budgetImage} header='Budget' description={budget} />
-        <BudgetCard
-          image={remainingBalanceImage}
-          header='Remaining'
-          description={remaining}
-        />
-        <BudgetCard image={spendImage} header='Spent' description={spent} />
-      </div>
-      <FormEntry />
-      <ShowTable />
-    </div>
+    <>
+      <Router>
+        <Switch>
+          <Route exact path='/'>
+            <div className='app'>
+              <Header as='h2' className='app__header'>
+                <Icon name='database' />
+                <Header.Content>Budget Tracker App</Header.Content>
+              </Header>
+              <div className='app__budgetCard'>
+                <BudgetCard
+                  image={budgetImage}
+                  header='Budget'
+                  description={budget}
+                />
+                <BudgetCard
+                  image={remainingBalanceImage}
+                  header='Remaining'
+                  description={remaining}
+                />
+                <BudgetCard
+                  image={spendImage}
+                  header='Spent'
+                  description={spent}
+                />
+              </div>
+              <FormEntry />
+            </div>
+          </Route>
+          <Route path='/viewAll'>
+            <ShowTable />
+          </Route>
+        </Switch>
+      </Router>
+    </>
   );
 }
 
