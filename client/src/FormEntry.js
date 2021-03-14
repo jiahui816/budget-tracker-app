@@ -1,5 +1,5 @@
 import React from 'react';
-import { createLogEntry } from './API';
+import { createBudgetEntry, createLogEntry } from './API';
 import { Form, Button } from 'semantic-ui-react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
@@ -12,6 +12,13 @@ const FormEntry = () => {
     e.target.reset();
     window.location.reload();
   };
+
+  const submitBudget = (data, e) => {
+    createBudgetEntry(data);
+    e.target.reset();
+    window.location.reload();
+  };
+
   return (
     <div className='form'>
       <Form onSubmit={handleSubmit(submit)}>
@@ -43,6 +50,23 @@ const FormEntry = () => {
             View All Logs 📝
           </Button>
         </Link>
+      </Form>
+      <Form onSubmit={handleSubmit(submitBudget)}>
+        <Form.Field>
+          <label>Monthly Budget </label>
+          <input
+            required={true}
+            placeholder='Budget'
+            name='budget'
+            ref={register}
+          />
+        </Form.Field>
+        <Button
+          style={{ color: 'black', backgroundColor: '#FFB266' }}
+          type='submit'
+        >
+          New Budget 💸
+        </Button>
       </Form>
     </div>
   );

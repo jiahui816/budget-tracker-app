@@ -5,14 +5,12 @@ import './ShowTable.css';
 import moment from 'moment';
 const ShowTable = ({ item_name, item_costs, date }) => {
   const [mongoDatas, setMongoDatas] = useState([]);
-  const [budget, setBudget] = useState(0);
 
   useEffect(() => {
     fetch('http://localhost:3003/api/logs')
       .then((res) => res.json())
       .then((data) => {
         setMongoDatas(data);
-        setBudget(data[0].budget);
       });
   }, []);
 
@@ -34,7 +32,7 @@ const ShowTable = ({ item_name, item_costs, date }) => {
 
           <Table.Body>
             {mongoDatas.map((data) => (
-              <Table.Row key={data.id}>
+              <Table.Row key={data._id}>
                 <Table.Cell>{data.item_name}</Table.Cell>
                 <Table.Cell>{data.item_cost}</Table.Cell>
                 <Table.Cell>

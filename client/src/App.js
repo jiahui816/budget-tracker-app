@@ -1,19 +1,19 @@
 import './App.css';
-import { Button, Header, Icon } from 'semantic-ui-react';
+import { Header, Icon } from 'semantic-ui-react';
 import BudgetCard from './BudgetCard';
 import budgetImage from './image/moneyicon.png';
 import remainingBalanceImage from './image/remaining.png';
 import spendImage from './image/spend.png';
 import FormEntry from './FormEntry';
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import ShowTable from './ShowTable';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { changeBudget, selectBudget } from './features/budgetSlice';
 
 function App(props) {
   const [mongoDatas, setMongoDatas] = useState({});
-
+  const dispatch = useDispatch();
   const budget = useSelector(selectBudget);
 
   useEffect(() => {
@@ -22,7 +22,13 @@ function App(props) {
       .then((data) => {
         setMongoDatas(data);
       });
-  }, []);
+    fetch('http://localhost:3003/api/logs/budget')
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data[data.length - 1].budget);
+        dispatch(changeBudget(data[data.length - 1].budget));
+      });
+  }, [dispatch]);
 
   var dataFromMongo = mongoDatas;
 
@@ -46,7 +52,6 @@ function App(props) {
                 <Icon name='database' />
                 <Header.Content>Budget Tracker App</Header.Content>
               </Header>
-              <Button>Change Budget</Button>
               <div className='app__budgetCard'>
                 <BudgetCard
                   image={budgetImage}
