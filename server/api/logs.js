@@ -1,12 +1,13 @@
 const { Router } = require('express');
 
 const FormEntry = require('../model/FormEntry');
-const BudgetEntry = require('../model/BudgetEntry')
+const BudgetEntry = require('../model/BudgetEntry');
 const DATABASE_URL = process.env;
 
 const router = Router();
 
 router.get('/', async (req, res, next) => {
+  //ReadAll
   try {
     const entries = await FormEntry.find();
     res.json(entries);
@@ -16,25 +17,60 @@ router.get('/', async (req, res, next) => {
 });
 
 router.post('/', async (req, res) => {
+  //CreateOne
   const formEntry = new FormEntry(req.body);
   const createdEntry = await formEntry.save();
   res.json(createdEntry);
 });
 
-router.get('/budget', async (req, res, next) => {
+router.get('/:id', async (req, res, next) => {
+  //ReadOne
   try {
-    const data = await BudgetEntry.find();
-    res.json(data);
+    const { id } = req.params;
+    const item = await FormEntry.findOne({
+      _id: id,
+    });
+    if (!item) return next();
+    return res.json(item);
   } catch (error) {
     next(error);
   }
 });
 
-router.post('/budget', async (req, res) => {
-  const budgetEntry = new BudgetEntry(req.body);
-  const newEntry = await budgetEntry.save();
-  res.json(newEntry);
+router.delete('/:id', async (req, res, next) => {
+  //DeleteOne
+  try {
+    const { id } = req.params;
+    await FormEntry.remove({ _id: id });
+    res.json({
+      message: 'success',
+    });
+  } catch (error) {
+    next(error);
+  }
 });
 
+router.put('/:id', async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const value = await FormEntry(req.body);
+    const item = await FormEntry.findOne({
+      _id: id,
+    });
+    if (!item) return next();
+
+    await FormEntry.findByIdAndUpdate(
+      {
+        _id: id,
+      },
+      {
+        value: value,
+      }
+    );
+    res.json(value);
+  } catch (error) {
+    next(error);
+  }
+});
 
 module.exports = router;

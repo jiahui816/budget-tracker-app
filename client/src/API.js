@@ -26,7 +26,7 @@ export async function createLogEntry(entry) {
 }
 
 export async function createBudgetEntry(entry) {
-  const response = await fetch(`${API_URL}/api/logs/budget`, {
+  const response = await fetch(`${API_URL}/api/budget`, {
     method: 'POST',
     headers: {
       'content-type': 'application/json',

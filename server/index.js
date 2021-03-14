@@ -5,6 +5,7 @@ const helmet = require('helmet');
 const cors = require('cors');
 require('dotenv').config();
 const logs = require('./api/logs');
+const budget = require('./api/budget');
 const app = express();
 const port = process.env.PORT || 3003;
 
@@ -22,6 +23,7 @@ mongoose.connect(process.env.DATABASE_URL, {
 });
 
 app.use('/api/logs', logs);
+app.use('/api/budget', budget);
 mongoose.connection.once('open', () => {
   console.log('Connected to MONGODB');
 });

@@ -22,7 +22,7 @@ function App(props) {
       .then((data) => {
         setMongoDatas(data);
       });
-    fetch('http://localhost:3003/api/logs/budget')
+    fetch('http://localhost:3003/api/budget')
       .then((res) => res.json())
       .then((data) => {
         console.log(data[data.length - 1].budget);
