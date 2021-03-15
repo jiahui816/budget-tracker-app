@@ -8,6 +8,7 @@ import './FormEntry.css';
 const FormEntry = () => {
   const { register, handleSubmit } = useForm();
   const [loading, setLoading] = useState(false);
+  const [budgetLoading, setBudgetLoading] = useState(false);
   const submit = (data, e) => {
     setLoading(true);
     createLogEntry(data);
@@ -19,10 +20,10 @@ const FormEntry = () => {
   };
 
   const submitBudget = (data, e) => {
-    setLoading(true);
+    setBudgetLoading(true);
     createBudgetEntry(data);
     setTimeout(() => {
-      setLoading(false);
+      setBudgetLoading(false);
       e.target.reset();
       window.location.reload();
     }, 1500);
@@ -65,23 +66,27 @@ const FormEntry = () => {
         </Form>
       )}
 
-      <Form onSubmit={handleSubmit(submitBudget)}>
-        <Form.Field>
-          <label>Monthly Budget </label>
-          <input
-            required={true}
-            placeholder='Budget'
-            name='budget'
-            ref={register}
-          />
-        </Form.Field>
-        <Button
-          style={{ color: 'black', backgroundColor: '#FFB266' }}
-          type='submit'
-        >
-          New Budget 💸
-        </Button>
-      </Form>
+      {budgetLoading ? (
+        <ClipLoader size={50} color={'black'} loading={budgetLoading} />
+      ) : (
+        <Form onSubmit={handleSubmit(submitBudget)}>
+          <Form.Field>
+            <label>Monthly Budget </label>
+            <input
+              required={true}
+              placeholder='Budget'
+              name='budget'
+              ref={register}
+            />
+          </Form.Field>
+          <Button
+            style={{ color: 'black', backgroundColor: '#FFB266' }}
+            type='submit'
+          >
+            New Budget 💸
+          </Button>
+        </Form>
+      )}
     </div>
   );
 };
