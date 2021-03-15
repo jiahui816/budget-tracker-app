@@ -50,27 +50,4 @@ router.delete('/:id', async (req, res, next) => {
   }
 });
 
-router.put('/:id', async (req, res, next) => {
-  try {
-    const { id } = req.params;
-    const value = await FormEntry(req.body);
-    const item = await FormEntry.findOne({
-      _id: id,
-    });
-    if (!item) return next();
-
-    await FormEntry.findByIdAndUpdate(
-      {
-        _id: id,
-      },
-      {
-        value: value,
-      }
-    );
-    res.json(value);
-  } catch (error) {
-    next(error);
-  }
-});
-
 module.exports = router;

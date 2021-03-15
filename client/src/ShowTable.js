@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { Button, Table, Header, Icon } from 'semantic-ui-react';
 import axios from 'axios';
 import './ShowTable.css';
 import moment from 'moment';
 const ShowTable = ({ item_name, item_costs, date }) => {
   const [mongoDatas, setMongoDatas] = useState([]);
-
+  const history = useHistory();
   useEffect(() => {
-    fetch('http://localhost:3003/api/logs')
+    fetch('https://budget-tracker-mern.herokuapp.com/api/logs')
       .then((res) => res.json())
       .then((data) => {
         setMongoDatas(data);
@@ -47,9 +47,9 @@ const ShowTable = ({ item_name, item_costs, date }) => {
                     );
                     if (check) {
                       axios.delete(
-                        `http://localhost:3003/api/logs/${data._id}`
+                        `https://budget-tracker-mern.herokuapp.com/api/logs/${data._id}`
                       );
-                      window.location.reload();
+                      history.push('/viewAll');
                     } else {
                     }
                   }}

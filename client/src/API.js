@@ -1,7 +1,7 @@
 const API_URL = 'http://localhost:3003';
 const heroku_url = 'https://budget-tracker-mern.herokuapp.com/';
 export async function createLogEntry(entry) {
-  const response = await fetch(`${API_URL}/api/logs`, {
+  const response = await fetch(`${heroku_url}/api/logs`, {
     method: 'POST',
     headers: {
       'content-type': 'application/json',
@@ -26,7 +26,7 @@ export async function createLogEntry(entry) {
 }
 
 export async function createBudgetEntry(entry) {
-  const response = await fetch(`${API_URL}/api/budget`, {
+  const response = await fetch(`${heroku_url}/api/budget`, {
     method: 'POST',
     headers: {
       'content-type': 'application/json',

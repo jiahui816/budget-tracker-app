@@ -21,15 +21,14 @@ function App(props) {
   const heroku_budget_api =
     'https://budget-tracker-mern.herokuapp.com/api/budget';
   useEffect(() => {
-    fetch(local_logs_api)
+    fetch(heroku_logs_api)
       .then((res) => res.json())
       .then((data) => {
         setMongoDatas(data);
       });
-    fetch(local_budget_api)
+    fetch(heroku_budget_api)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data[data.length - 1].budget);
         dispatch(changeBudget(data[data.length - 1].budget));
       });
   }, [dispatch]);
