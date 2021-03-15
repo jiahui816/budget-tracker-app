@@ -12,7 +12,7 @@ const FormEntry = () => {
     setTimeout(() => {
       e.target.reset();
       window.location.reload();
-    }, 3000);
+    }, 1500);
   };
 
   const submitBudget = (data, e) => {
@@ -20,7 +20,7 @@ const FormEntry = () => {
     setTimeout(() => {
       e.target.reset();
       window.location.reload();
-    }, 3000);
+    }, 1500);
   };
 
   return (
