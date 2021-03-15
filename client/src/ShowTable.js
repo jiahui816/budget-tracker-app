@@ -49,7 +49,9 @@ const ShowTable = ({ item_name, item_costs, date }) => {
                       axios.delete(
                         `https://budget-tracker-mern.herokuapp.com/api/logs/${data._id}`
                       );
-                      history.push('/viewAll');
+                      setTimeout(() => {
+                        window.location.reload();
+                      }, 1200);
                     } else {
                     }
                   }}
