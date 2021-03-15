@@ -13,6 +13,7 @@ import { changeBudget, selectBudget } from './features/budgetSlice';
 
 function App(props) {
   const [mongoDatas, setMongoDatas] = useState({});
+
   const dispatch = useDispatch();
   const budget = useSelector(selectBudget);
   const local_logs_api = 'http://localhost:3003/api/logs';
@@ -61,7 +62,6 @@ function App(props) {
                   header='Budget'
                   description={budget}
                 />
-
                 <BudgetCard
                   image={remainingBalanceImage}
                   header='Remaining'
@@ -76,6 +76,7 @@ function App(props) {
               <FormEntry />
             </div>
           </Route>
+
           <Route path='/viewAll'>
             <ShowTable />
           </Route>
