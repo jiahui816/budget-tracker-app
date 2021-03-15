@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Button, Table, Header } from 'semantic-ui-react';
+import { Button, Table, Header, Icon } from 'semantic-ui-react';
+import axios from 'axios';
 import './ShowTable.css';
 import moment from 'moment';
 const ShowTable = ({ item_name, item_costs, date }) => {
@@ -27,6 +28,7 @@ const ShowTable = ({ item_name, item_costs, date }) => {
               <Table.HeaderCell>Item Name</Table.HeaderCell>
               <Table.HeaderCell>Cost</Table.HeaderCell>
               <Table.HeaderCell>Date Spent</Table.HeaderCell>
+              <Table.HeaderCell>Remove</Table.HeaderCell>
             </Table.Row>
           </Table.Header>
 
@@ -37,6 +39,22 @@ const ShowTable = ({ item_name, item_costs, date }) => {
                 <Table.Cell>{data.item_cost}</Table.Cell>
                 <Table.Cell>
                   {moment(data.date).format('YYYY-MM-DD')}
+                </Table.Cell>
+                <Table.Cell
+                  onClick={() => {
+                    var check = window.confirm(
+                      'Are you sure you want to delete?'
+                    );
+                    if (check) {
+                      axios.delete(
+                        `http://localhost:3003/api/logs/${data._id}`
+                      );
+                      window.location.reload();
+                    } else {
+                    }
+                  }}
+                >
+                  <Icon name='delete' className='showTable__delete' />
                 </Table.Cell>
               </Table.Row>
             ))}

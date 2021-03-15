@@ -1,3 +1,11 @@
-.showTable{
-    margin:40px;
+.showTable {
+  margin: 40px;
+}
+
+.showTable__delete:hover {
+  cursor: pointer;
+}
+
+.showTable__delete {
+  color: red !important;
 }
