@@ -9,14 +9,18 @@ const FormEntry = () => {
 
   const submit = (data, e) => {
     createLogEntry(data);
-    e.target.reset();
-    window.location.reload();
+    setTimeout(() => {
+      e.target.reset();
+      window.location.reload();
+    }, 3000);
   };
 
   const submitBudget = (data, e) => {
     createBudgetEntry(data);
-    e.target.reset();
-    window.location.reload();
+    setTimeout(() => {
+      e.target.reset();
+      window.location.reload();
+    }, 3000);
   };
 
   return (
